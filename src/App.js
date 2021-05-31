@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { 
+	Grid, 
+	Typography 
+} from '@material-ui/core';
+import Form from './components/Form';
+import { formStructure, validationSchema } from './data/fields';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [loading, setLoading] = useState(false);
+
+	const onSubmit = values => {
+		console.log(values);
+		setLoading(true)
+		setTimeout(() => {setLoading(false)}, 1000)
+	}
+
+	return (
+		<Grid container justify="center">
+			<Grid item xs={12} md={6}>
+
+				<Typography variant="h4">Comment Form</Typography>
+			
+				<Form 
+					onSubmit={onSubmit}
+					validationSchema={validationSchema}
+					formStructure={formStructure}
+					loading={loading}
+				/>
+			</Grid>
+		</Grid>
+
+	);
 }
 
 export default App;
